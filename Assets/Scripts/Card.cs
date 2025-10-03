@@ -8,7 +8,8 @@ public class Card : ScriptableObject
     {
         Shoot,
         Move,
-        Recover
+        Recover,
+        Block
     }
     public string cardName;
     public int cardCost;
