@@ -21,7 +21,8 @@ public class GridController : MonoBehaviour
             }
         }
 
-        Camera.main.transform.position = new Vector3(gridSize.x / 2 - (0.5f), 10, gridSize.y / 2 - (0.5f));
+        Camera.main.transform.position = new Vector3(gridSize.x / 2 - (0.5f), 10, gridSize.y / 2 - (8.5f));
+        Camera.main.transform.Translate(new Vector3(0,-1f,-15f), Space.Self);
     }
 
     // Update is called once per frame
