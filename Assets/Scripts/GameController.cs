@@ -3,15 +3,26 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
+    public enum GameState
+    {
+        a_selectCard,
+        b_selectTarget,
+        c_executing,
+        d_cleanUp
+    }
     [Header("vars")]
     [SerializeField] private List<CardController> CardControllersInHand = new List<CardController>();
     [SerializeField] private List<GameObject> CardsInHandUI = new List<GameObject>();
+    [SerializeField] private GameState gameState;
+    [SerializeField] private int selectedHandCard;
+    private bool targetTileMode;
     
     [Header("prefabs")]
     [SerializeField] private GameObject CardUi;
     
     [Header("prepopulated")] 
     [SerializeField] private GameObject cursor;
+    [SerializeField] private GameObject playCardCursor;
     [SerializeField] private GridController _gridController;
     [SerializeField] private DeckController _deckController;
     [SerializeField] private InputController _inputController;
@@ -31,12 +42,30 @@ public class GameController : MonoBehaviour
         DrawCard();
         DrawCard();
         DrawCard();
+        gameState = GameState.a_selectCard;
+        playCardCursor.transform.position = new Vector3(-100, -100, 0);
+        targetTileMode = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        switch (gameState)
+        {
+            case GameState.a_selectCard:
+                if (selectedHandCard != 0)
+                {
+                    Debug.Log("update");
+                    //doStuff
+                    targetTileMode = CardControllersInHand[selectedHandCard-1].GetCard().targetTileMode;
+                    playCardCursor.transform.position = CardControllersInHand[selectedHandCard-1].transform.position;
+                    gameState = GameState.b_selectTarget;
+                    selectedHandCard = 0;
+                }
+                break;
+            case GameState.b_selectTarget:
+                break;
+        }
     }
     
     private void UpdateHand()
@@ -48,7 +77,7 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < CardControllersInHand.Count; i++)
         {
-            CardControllersInHand[i].transform.position = new Vector3(i * 2.1f + (_gridController.GetGridSize().x/2) - (CardControllersInHand.Count) + 0.3f, 0f, -2.3f);
+            CardControllersInHand[i].transform.position = new Vector3(i * 2.1f + (_gridController.GetGridSize().x/2) - (CardControllersInHand.Count) + 0.3f, 0f, -2.8f);
         }
     }
 
@@ -59,6 +88,8 @@ public class GameController : MonoBehaviour
         CardController tempCardController = newCardUI.GetComponent<CardController>();
         tempCardController.SetArt(inCard);
         CardControllersInHand.Add(tempCardController);
+        tempCardController.SetHandIndex(CardControllersInHand.Count);
+        tempCardController.SetGameController(this);
         AlignHandUi();
     }
 
@@ -70,7 +101,7 @@ public class GameController : MonoBehaviour
 
     public void AnnounceCursorEnter(Vector2 targetPos)
     {
-        SetCursor(targetPos);
+        if (targetTileMode) SetCursor(targetPos);
     }
 
     public void AnnounceCursorExit()
@@ -81,5 +112,34 @@ public class GameController : MonoBehaviour
     private void SetCursor(Vector2 targetPos)
     {
         cursor.transform.position = new Vector3(targetPos.x, 0.02f, targetPos.y);
+    }
+
+    public void AnnounceHandSelected(int input)
+    {
+        Debug.Log(input);
+    }
+
+    public void AnnounceHandClicked(int input)
+    {
+        switch (gameState)
+        {
+            case GameState.a_selectCard:
+                selectedHandCard = input;
+                break;
+            case GameState.b_selectTarget:
+                //cancel card selection
+                CardControllersInHand[input-1].rolloffEffect();
+                Debug.Log("announce");
+                playCardCursor.transform.position = new Vector3(-100, -100, 0);
+                selectedHandCard = 0;
+                targetTileMode = false;
+                gameState = GameState.a_selectCard;
+            break;
+        }
+    }
+
+    public GameState GetGameState()
+    {
+        return gameState;
     }
 }

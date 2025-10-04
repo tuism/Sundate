@@ -16,4 +16,5 @@ public class Card : ScriptableObject
     public Sprite cardSprite;
     public string cardText;
     public EffectType cardType;
+    public bool targetTileMode;
 }

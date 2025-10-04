@@ -52,10 +52,12 @@ MonoBehaviour:
   CardArt: {fileID: 4400124725858109952}
   container: {fileID: 8697631828768337902}
   cost: 0
+  handIndex: 0
   name: 
   text: 
   card: {fileID: 0}
   _collider: {fileID: 8081935307935614676}
+  _gameController: {fileID: 0}
 --- !u!65 &8081935307935614676
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -111,7 +113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 59.4, y: 94.4}
+  m_AnchoredPosition: {x: 59.9, y: 95.3}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5370224240762204216
