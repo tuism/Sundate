@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
         DrawCard();
         DrawCard();
         DrawCard();
+        DrawCard();
     }
 
     // Update is called once per frame
@@ -43,12 +44,22 @@ public class GameController : MonoBehaviour
         
     }
 
+    private void AlignHandUi()
+    {
+        for (int i = 0; i < CardControllersInHand.Count; i++)
+        {
+            CardControllersInHand[i].transform.position = new Vector3(i * 2.1f + (_gridController.GetGridSize().x/2) - (CardControllersInHand.Count) + 0.3f, 0f, -2.3f);
+        }
+    }
+
     private void AddToHandUI(Card inCard)
     {
         GameObject newCardUI = Instantiate(CardUi,
             new Vector3((_deckController.GetPlayerHand().Count * 2.1f)-1, 0f, -2.3f), Quaternion.identity);
         CardController tempCardController = newCardUI.GetComponent<CardController>();
         tempCardController.SetArt(inCard);
+        CardControllersInHand.Add(tempCardController);
+        AlignHandUi();
     }
 
     public void DrawCard()

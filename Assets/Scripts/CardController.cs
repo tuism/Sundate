@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,10 +6,12 @@ public class CardController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI CardName, CardText, CardCost;
     [SerializeField] private SpriteRenderer CardArt;
+    [SerializeField] private Transform container;
 
     [SerializeField] private int cost;
     [SerializeField] private string name, text;
     [SerializeField] private Card card;
+    [SerializeField] private Collider _collider;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,4 +36,15 @@ public class CardController : MonoBehaviour
         cost = card.cardCost;
         CardArt.sprite = card.cardSprite;
     }
+
+    private void OnMouseEnter()
+    {
+        container.transform.localPosition = new Vector3(0, 0, 0.3f);
+    }
+    
+    private void OnMouseExit()
+    {
+        container.transform.localPosition = new Vector3(0, 0, 0);
+    }
+
 }

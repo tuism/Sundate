@@ -34,6 +34,11 @@ public class GridController : MonoBehaviour
         Camera.main.transform.Translate(new Vector3(0,-2f,-15f), Space.Self);
     }
 
+    public Vector2 GetGridSize()
+    {
+        return gridSize;
+    }
+
     // Update is called once per frame
     void Update()
     {

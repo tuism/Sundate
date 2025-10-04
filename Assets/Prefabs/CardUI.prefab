@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4311883969731032501}
   - component: {fileID: 4086476756244088322}
+  - component: {fileID: 8081935307935614676}
   m_Layer: 0
   m_Name: CardUI
   m_TagString: Untagged
@@ -30,9 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4974577471711609007}
-  - {fileID: 8203204221712619533}
-  - {fileID: 1993068191234893242}
+  - {fileID: 8697631828768337902}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4086476756244088322
@@ -51,9 +50,33 @@ MonoBehaviour:
   CardText: {fileID: 8570627067043069998}
   CardCost: {fileID: 7042155896730054638}
   CardArt: {fileID: 4400124725858109952}
+  container: {fileID: 8697631828768337902}
   cost: 0
   name: 
   text: 
+  card: {fileID: 0}
+  _collider: {fileID: 8081935307935614676}
+--- !u!65 &8081935307935614676
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3392321242921294997}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.82, y: 0.1, z: 2.88}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4299729067156949877
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,12 +238,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4996448552127902187}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.49}
-  m_LocalScale: {x: 1.6208855, y: 1.6208855, z: 1.6208855}
+  m_LocalScale: {x: 1.6208855, y: 1.6208856, z: 1.6208856}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4311883969731032501}
+  m_Father: {fileID: 8697631828768337902}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &4400124725858109952
 SpriteRenderer:
@@ -418,6 +441,40 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &6266107561661271054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8697631828768337902}
+  m_Layer: 0
+  m_Name: Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8697631828768337902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6266107561661271054}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4974577471711609007}
+  - {fileID: 8203204221712619533}
+  - {fileID: 1993068191234893242}
+  m_Father: {fileID: 4311883969731032501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6416837884086650983
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +505,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4311883969731032501}
+  m_Father: {fileID: 8697631828768337902}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &5122716648550936851
 SpriteRenderer:
@@ -671,14 +728,14 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7068086921356942129}
   m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 0, y: 0, z: 0.05}
+  m_LocalPosition: {x: 0, y: 0, z: 0.049999952}
   m_LocalScale: {x: 0.012681184, y: 0.012681184, z: 0.012681184}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1866851373249952907}
   - {fileID: 1285675369465532737}
   - {fileID: 3335101864125203177}
-  m_Father: {fileID: 4311883969731032501}
+  m_Father: {fileID: 8697631828768337902}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
