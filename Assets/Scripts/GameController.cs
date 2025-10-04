@@ -29,8 +29,7 @@ public class GameController : MonoBehaviour
     
     [Header("prepopulated")] 
     [SerializeField] private GameObject cursor;
-    [SerializeField] private GameObject playCardCursor, targetLineCursor, targetLine, crosshairCursor, playerObj;
-    [SerializeField] private List<GameObject> targetLineRange = new List<GameObject>();
+    [SerializeField] private GameObject playCardCursor;
     [SerializeField] private GridController _gridController;
     [SerializeField] private DeckController _deckController;
     [SerializeField] private InputController _inputController;
@@ -71,19 +70,6 @@ public class GameController : MonoBehaviour
                     targetMode = selectedCard.GetCard().targetMode;
                     switch (targetMode)
                     {
-                        case Card.TargetMode.CursorMode:
-                            for (int i = 0; i < targetLineRange.Count; i++)
-                            {
-                                if (selectedCard.GetPower() > i+1)
-                                {
-                                    targetLineRange[i].SetActive(true);
-                                }
-                                else
-                                {
-                                    targetLineRange[i].SetActive(false);
-                                }
-                            }
-                            break;
                     }
                     playCardCursor.transform.position = selectedCard.GameObject().transform.position;
                     gameState = GameState.b_selectTarget;
@@ -94,8 +80,6 @@ public class GameController : MonoBehaviour
                 switch (targetMode)
                 {
                     case Card.TargetMode.CursorMode:
-                        targetLine.transform.LookAt(mousePos);
-                        crosshairCursor.transform.position = mousePos;
                         break;
                 }
 
@@ -103,14 +87,6 @@ public class GameController : MonoBehaviour
                 {
                     switch (selectedCard.GetType())
                     {
-                        case Card.EffectType.Shoot:
-                            break;
-                        case Card.EffectType.Move:
-                            break;
-                        case Card.EffectType.Recover:
-                            break;
-                        case Card.EffectType.Block:
-                            break;
                     }
                 }
                 break;
@@ -153,16 +129,12 @@ public class GameController : MonoBehaviour
         if (targetMode == Card.TargetMode.TileMode) SetCursor(targetPos);
         if (targetMode == Card.TargetMode.CursorMode)
         {
-            targetLineCursor.transform.position = playerObj.transform.position;
-            crosshairCursor.transform.position = mousePos;
         }
     }
 
     public void AnnounceCursorExit()
     {
         SetCursor(offstage);
-        targetLineCursor.transform.position = offstage;
-        crosshairCursor.transform.position = offstage;
     }
 
     private void SetCursor(Vector2 targetPos)

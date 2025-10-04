@@ -95,9 +95,9 @@ public class CardController : MonoBehaviour
         return card.power;
     }
 
-    public Card.EffectType GetType()
+    public Card.EffectType GetEffect()
     {
-        return card.cardType;
+        return card.cardEffect;
     }
 
 }

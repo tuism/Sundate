@@ -6,11 +6,31 @@ public class Card : ScriptableObject
 {
     public enum EffectType
     {
-        Shoot,
-        Move,
-        Recover,
-        Block
+        Build,
+        Land,
+        Effect,
+        Destroy,
+        Change,
     }
+
+    public enum LandType
+    {
+        Plain,
+        Green,
+        Barren,
+        Water
+    }
+    
+    public enum StructureType
+    {
+        Garbage,
+        Tree,
+        Housing,
+        Water,
+        Grass,
+        Building
+    }
+    
 
     public enum TargetMode
     {
@@ -22,7 +42,7 @@ public class Card : ScriptableObject
     public int cardCost, power;
     public Sprite cardSprite;
     public string cardText;
-    public EffectType cardType;
+    public EffectType cardEffect;
     // public bool targetTileMode;
     // public bool targetCursorMode;
     public TargetMode targetMode;

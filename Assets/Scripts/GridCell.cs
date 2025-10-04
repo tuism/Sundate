@@ -1,10 +1,14 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GridCell : MonoBehaviour
 {
     [SerializeField] private Vector2 xy;
     [SerializeField] private GameController _gameController;
+    [SerializeField] private List<LandFeature> LandFeatures = new List<LandFeature>();
+    [SerializeField] private List<int> trees, garbages, houses, waters;
+    [SerializeField] private int capacity;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
