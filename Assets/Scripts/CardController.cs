@@ -33,8 +33,8 @@ public class CardController : MonoBehaviour
         name = card.cardName;
         CardText.text = card.cardText;
         text = card.cardText;
-        CardCost.text = card.cardCost.ToString();
-        cost = card.cardCost;
+        CardCost.text = card.cardTimeCost.ToString();
+        cost = card.cardTimeCost;
         CardArt.sprite = card.cardSprite;
     }
 
@@ -89,15 +89,4 @@ public class CardController : MonoBehaviour
     {
         return card;
     }
-
-    public int GetPower()
-    {
-        return card.power;
-    }
-
-    public Card.EffectType GetEffect()
-    {
-        return card.cardEffect;
-    }
-
 }

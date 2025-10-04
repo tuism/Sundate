@@ -5,7 +5,7 @@ public class LandFeature : MonoBehaviour
     [SerializeField] private GameObject house1, house2, garbage1, garbage2, water, grass, tree;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         AllStructuresOff();
     }
@@ -15,7 +15,7 @@ public class LandFeature : MonoBehaviour
     {
         
     }
-
+    
     public void SetStructure(Card.StructureType input)
     {
         AllStructuresOff();
@@ -28,8 +28,7 @@ public class LandFeature : MonoBehaviour
                 grass.SetActive(true);
                 break;
             case (Card.StructureType.Garbage):
-                if (Random.Range(0,2) == 0)
-                {garbage1.SetActive(true);} else {garbage2.SetActive(true);}
+                garbage1.SetActive(true);
                 break;
             case (Card.StructureType.Housing):
                 house1.SetActive(true);

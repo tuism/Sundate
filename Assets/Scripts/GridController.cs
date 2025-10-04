@@ -1,6 +1,8 @@
 using Unity.Mathematics;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class GridController : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class GridController : MonoBehaviour
     [SerializeField] private new List<GridCell> cells = new List<GridCell>();
     
     [SerializeField] private GameController _gameController;
-
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,14 +31,36 @@ public class GridController : MonoBehaviour
                 cells.Add(tempCellAttribs);
             }
         }
-
         Camera.main.transform.position = new Vector3(gridSize.x / 2 - (0.5f), 10, gridSize.y / 2 - (8.5f));
         Camera.main.transform.Translate(new Vector3(0,-2f,-15f), Space.Self);
+        
+        RandomlyGenerate(20, Card.StructureType.Garbage);
+        RandomlyGenerate(10, Card.StructureType.Tree,0,15);
+        RandomlyGenerate(30, Card.StructureType.Water,15,25);
     }
 
     public Vector2 GetGridSize()
     {
         return gridSize;
+    }
+
+    public void RandomlyGenerate(int howMany, Card.StructureType ofType, int rangeStart = 0, int rangeEnd = 0)
+    {
+        if (rangeStart != rangeEnd)
+        {
+            if (rangeEnd > cells.Count) {rangeEnd = cells.Count;}
+            for (int i = 0; i < howMany; i++)
+            {
+                cells[Random.Range(rangeStart, rangeEnd)].AddStructure(ofType);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < howMany; i++)
+            {
+                cells[Random.Range(0, cells.Count)].AddStructure(ofType);
+            }
+        }
     }
 
     // Update is called once per frame

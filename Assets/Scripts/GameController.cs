@@ -77,12 +77,6 @@ public class GameController : MonoBehaviour
                 }
                 break;
             case GameState.b_selectTarget:
-                switch (targetMode)
-                {
-                    case Card.TargetMode.CursorMode:
-                        break;
-                }
-
                 if (clickedMap)
                 {
                     switch (selectedCard.GetType())
@@ -127,9 +121,6 @@ public class GameController : MonoBehaviour
     public void AnnounceCursorEnter(Vector2 targetPos)
     {
         if (targetMode == Card.TargetMode.TileMode) SetCursor(targetPos);
-        if (targetMode == Card.TargetMode.CursorMode)
-        {
-        }
     }
 
     public void AnnounceCursorExit()

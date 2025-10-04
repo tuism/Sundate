@@ -8,9 +8,13 @@ public class Card : ScriptableObject
     {
         Build,
         Land,
-        Effect,
         Destroy,
-        Change,
+        ChangeTime,
+        ChangeCash,
+        ChangeMaterial,
+        ChangeElec,
+        ChangeHousing,
+        ChangePop,
     }
 
     public enum LandType
@@ -23,6 +27,8 @@ public class Card : ScriptableObject
     
     public enum StructureType
     {
+        None,
+        Any,
         Garbage,
         Tree,
         Housing,
@@ -30,20 +36,19 @@ public class Card : ScriptableObject
         Grass,
         Building
     }
-    
 
     public enum TargetMode
     {
         None,
         TileMode,
-        CursorMode
     }
     public string cardName;
-    public int cardCost, power;
     public Sprite cardSprite;
     public string cardText;
-    public EffectType cardEffect;
-    // public bool targetTileMode;
-    // public bool targetCursorMode;
+    public int cardTimeCost, cardCashCost, cardElecCost, cardMatsCost;
+    public StructureType targetType;
+    public int targetNumberRequired;
+    public EffectType cardEffect1, cardEffect2;
+    public int cardEffectNumber1, cardEffectNumber2;
     public TargetMode targetMode;
 }

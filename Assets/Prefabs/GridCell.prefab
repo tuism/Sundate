@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   xy: {x: 0, y: 0}
   _gameController: {fileID: 0}
-  targetPoints:
+  LandFeatures:
   - {fileID: 8321399617202892619}
   - {fileID: 3615972296351279495}
   - {fileID: 6973286539286811395}
@@ -153,11 +153,11 @@ MonoBehaviour:
   - {fileID: 4261287682646111325}
   - {fileID: 3850324767922584073}
   - {fileID: 2388017916005475151}
+  open: 000000000100000002000000030000000400000005000000060000000700000008000000
   trees: 
   garbages: 
   houses: 
   waters: 
-  capacity: 0
 --- !u!65 &3474990661006548542
 BoxCollider:
   m_ObjectHideFlags: 0
