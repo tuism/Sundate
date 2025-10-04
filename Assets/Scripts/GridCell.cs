@@ -38,6 +38,17 @@ public class GridCell : MonoBehaviour
         _gameController.AnnounceCursorExit();
     }
 
+    private void OnMouseOver()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, 1000f))
+        {
+            // Raycast hit something
+        }
+        _gameController.AnnounceMousePos(hit.point);
+    }
+    
     private void OnMouseDown()
     {
         

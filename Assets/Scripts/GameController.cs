@@ -1,5 +1,8 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 public class GameController : MonoBehaviour
 {
@@ -14,18 +17,25 @@ public class GameController : MonoBehaviour
     [SerializeField] private List<CardController> CardControllersInHand = new List<CardController>();
     [SerializeField] private List<GameObject> CardsInHandUI = new List<GameObject>();
     [SerializeField] private GameState gameState;
-    [SerializeField] private int selectedHandCard;
-    private bool targetTileMode;
+    [SerializeField] private int selectedHandCardIndex;
+    [SerializeField] private Vector3 mousePos;
+    // private bool targetTileMode, targetCursorMode;
+    private Card.TargetMode targetMode;
+    private CardController selectedCard;
+    private bool clickedMap;
     
     [Header("prefabs")]
     [SerializeField] private GameObject CardUi;
     
     [Header("prepopulated")] 
     [SerializeField] private GameObject cursor;
-    [SerializeField] private GameObject playCardCursor;
+    [SerializeField] private GameObject playCardCursor, targetLineCursor, targetLine, crosshairCursor, playerObj;
+    [SerializeField] private List<GameObject> targetLineRange = new List<GameObject>();
     [SerializeField] private GridController _gridController;
     [SerializeField] private DeckController _deckController;
     [SerializeField] private InputController _inputController;
+    private Vector3 offstage = new Vector3(-100, -100, 0);
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -43,8 +53,9 @@ public class GameController : MonoBehaviour
         DrawCard();
         DrawCard();
         gameState = GameState.a_selectCard;
-        playCardCursor.transform.position = new Vector3(-100, -100, 0);
-        targetTileMode = false;
+        AnnounceCursorExit();
+        playCardCursor.transform.position = offstage;
+        targetMode = Card.TargetMode.None;
     }
 
     // Update is called once per frame
@@ -53,17 +64,55 @@ public class GameController : MonoBehaviour
         switch (gameState)
         {
             case GameState.a_selectCard:
-                if (selectedHandCard != 0)
+                if (selectedHandCardIndex != 0)
                 {
-                    Debug.Log("update");
                     //doStuff
-                    targetTileMode = CardControllersInHand[selectedHandCard-1].GetCard().targetTileMode;
-                    playCardCursor.transform.position = CardControllersInHand[selectedHandCard-1].transform.position;
+                    selectedCard = CardControllersInHand[selectedHandCardIndex - 1];
+                    targetMode = selectedCard.GetCard().targetMode;
+                    switch (targetMode)
+                    {
+                        case Card.TargetMode.CursorMode:
+                            for (int i = 0; i < targetLineRange.Count; i++)
+                            {
+                                if (selectedCard.GetPower() > i+1)
+                                {
+                                    targetLineRange[i].SetActive(true);
+                                }
+                                else
+                                {
+                                    targetLineRange[i].SetActive(false);
+                                }
+                            }
+                            break;
+                    }
+                    playCardCursor.transform.position = selectedCard.GameObject().transform.position;
                     gameState = GameState.b_selectTarget;
-                    selectedHandCard = 0;
+                    selectedHandCardIndex = 0;
                 }
                 break;
             case GameState.b_selectTarget:
+                switch (targetMode)
+                {
+                    case Card.TargetMode.CursorMode:
+                        targetLine.transform.LookAt(mousePos);
+                        crosshairCursor.transform.position = mousePos;
+                        break;
+                }
+
+                if (clickedMap)
+                {
+                    switch (selectedCard.GetType())
+                    {
+                        case Card.EffectType.Shoot:
+                            break;
+                        case Card.EffectType.Move:
+                            break;
+                        case Card.EffectType.Recover:
+                            break;
+                        case Card.EffectType.Block:
+                            break;
+                    }
+                }
                 break;
         }
     }
@@ -101,12 +150,19 @@ public class GameController : MonoBehaviour
 
     public void AnnounceCursorEnter(Vector2 targetPos)
     {
-        if (targetTileMode) SetCursor(targetPos);
+        if (targetMode == Card.TargetMode.TileMode) SetCursor(targetPos);
+        if (targetMode == Card.TargetMode.CursorMode)
+        {
+            targetLineCursor.transform.position = playerObj.transform.position;
+            crosshairCursor.transform.position = mousePos;
+        }
     }
 
     public void AnnounceCursorExit()
     {
-        SetCursor(new Vector2(-100,-100));
+        SetCursor(offstage);
+        targetLineCursor.transform.position = offstage;
+        crosshairCursor.transform.position = offstage;
     }
 
     private void SetCursor(Vector2 targetPos)
@@ -124,22 +180,32 @@ public class GameController : MonoBehaviour
         switch (gameState)
         {
             case GameState.a_selectCard:
-                selectedHandCard = input;
+                selectedHandCardIndex = input;
                 break;
             case GameState.b_selectTarget:
                 //cancel card selection
                 CardControllersInHand[input-1].rolloffEffect();
                 Debug.Log("announce");
                 playCardCursor.transform.position = new Vector3(-100, -100, 0);
-                selectedHandCard = 0;
-                targetTileMode = false;
+                selectedHandCardIndex = 0;
+                targetMode = Card.TargetMode.None;
                 gameState = GameState.a_selectCard;
             break;
         }
     }
 
+    public void AnnounceMousePos(Vector3 input)
+    {
+        mousePos = input;
+    }
+
     public GameState GetGameState()
     {
         return gameState;
+    }
+
+    public void AnnounceMouseClick()
+    {
+        
     }
 }

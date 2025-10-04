@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0810e57ea0ddd734e85df1b876dc3d78, type: 3}
   m_Name: Card003
   m_EditorClassIdentifier: Assembly-CSharp::Card
-  cardName: Recover
-  cardCost: 0
+  cardName: Fast Shot
+  cardCost: 1
+  power: 3
   cardSprite: {fileID: 21300000, guid: 2493e27a585ec1744934ed06992b59ef, type: 3}
-  cardText: Heal 1
-  cardType: 2
+  cardText: Shoot speed 3
+  cardType: 0
+  targetMode: 2

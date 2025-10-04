@@ -90,4 +90,14 @@ public class CardController : MonoBehaviour
         return card;
     }
 
+    public int GetPower()
+    {
+        return card.power;
+    }
+
+    public Card.EffectType GetType()
+    {
+        return card.cardType;
+    }
+
 }

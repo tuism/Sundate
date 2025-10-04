@@ -11,10 +11,19 @@ public class Card : ScriptableObject
         Recover,
         Block
     }
+
+    public enum TargetMode
+    {
+        None,
+        TileMode,
+        CursorMode
+    }
     public string cardName;
-    public int cardCost;
+    public int cardCost, power;
     public Sprite cardSprite;
     public string cardText;
     public EffectType cardType;
-    public bool targetTileMode;
+    // public bool targetTileMode;
+    // public bool targetCursorMode;
+    public TargetMode targetMode;
 }
